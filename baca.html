@@ -1,0 +1,224 @@
+<html>
+<head>
+
+<script type="text/javascript">
+function gup( name ) {
+	name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");  
+	var regexS = "[\\?&]"+name+"=([^&#]*)";  
+	var regex = new RegExp( regexS );
+	var results = regex.exec( window.location.href );
+	
+	if( results == null )   
+		return "";  
+	else  
+		return results[1];
+}
+
+function init()
+{
+	var tanggal = gup("tanggal");
+	var halaman = gup("halaman");
+	
+	var currentTime = new Date();
+
+	if(tanggal=="")
+		tanggal = pad(currentTime.getDate(),2)+"-"+month(currentTime.getMonth())+"-"+currentTime.getFullYear();
+	
+	if(halaman=="")
+		halaman="1";
+	
+	document.getElementById("tanggal").value = tanggal;
+	document.getElementById("halaman").value = halaman;
+	
+	var nav = document.getElementById("navigation");
+	nav.innerHTML="";
+	var i;
+	for(i=1;i<=64;i++)
+	{
+		if(halaman==i)
+			nav.innerHTML+=" [ ";
+		nav.innerHTML+='<a href="baca.html?tanggal='+tanggal+'&halaman='+i+'">'+i+'</a> ';
+		
+		if(halaman==i)
+			nav.innerHTML+="] ";
+		
+	}
+	
+	setPicture();
+}
+
+function pad(number, length) {
+	var str = '' + number;
+	while (str.length < length) {
+		str = '0' + str;
+	}
+
+	return str;
+}
+
+function month(m)
+{
+	if(m==0)
+		return "Jan";
+	else if(m==1)
+		return "Feb";
+	else if(m==2)
+		return "Mar";
+	else if(m==3)
+		return "Apr";
+	else if(m==4)
+		return "Mei";
+	else if(m==5)
+		return "Jun";
+	else if(m==6)
+		return "Jul";
+	else if(m==7)
+		return "Aug";
+	else if(m==8)
+		return "Sep";
+	else if(m==9)
+		return "Oct";
+	else if(m==10)
+		return "Nov";
+	else if(m==11)
+		return "Dec";
+
+}
+
+
+function setPicture()
+{
+	var tanggal = document.getElementById("tanggal").value;
+	var halaman = document.getElementById("halaman").value;
+	
+	//alert(tanggal);
+	//alert(halaman);
+	
+	var picJPG = 'http://images.cdn.realviewdigital.com/djvu/Kompas/Kompas/'+tanggal+'/webimages/page'+pad(halaman,7)+'_large.jpg';
+	var picPNG = 'http://images.cdn.realviewdigital.com/djvu/Kompas/Kompas/'+tanggal+'/webimages/page'+pad(halaman,7)+'_large.png';
+	
+	var gambarJPG = document.getElementById("gambarJPG");
+	var gambarPNG = document.getElementById("gambarPNG");
+	
+	gambarJPG.src = picJPG;
+	gambarPNG.src = picPNG;
+	
+	
+	var don = document.getElementById("download");
+	don.innerHTML="";
+	don.innerHTML+='<a href="'+picJPG+'">jpg</a> ';
+	don.innerHTML+='<a href="'+picPNG+'">png</a> ';
+	
+	
+	//alert(picJPG);
+	//alert(picPNG);
+}
+
+function nextPage()
+{
+	var halaman = document.getElementById("halaman").value;
+	halaman = parseInt(halaman) + 1;
+	document.getElementById("halaman").value = halaman;
+	
+	setPicture();
+}
+
+function prevPage()
+{
+	var halaman = document.getElementById("halaman").value;
+	halaman = parseInt(halaman) - 1 ;
+	document.getElementById("halaman").value = halaman;
+	
+	setPicture();
+
+}
+
+</script>
+
+</head>
+
+<body onload="init()">
+
+<div>
+	<input type="hidden" id="tanggal" value="13-Sep-2010" />
+	<input type="hidden" id="halaman" value="1" />
+
+	
+	
+	<div>
+		<!--
+		<input type="button" value="prev" onClick="prevPage()" />
+		<input type="button" value="next" onClick="nextPage()" />
+		-->
+				<select>
+			<option value="2010">2010</option>
+			<option value="2009">2009</option>
+			<option value="2008">2008</option>
+		</select>
+		
+		<select>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+			<option value="6">6</option>
+			<option value="7">7</option>
+			<option value="8">8</option>
+			<option value="9">9</option>
+			<option value="10">10</option>
+			<option value="11">11</option>
+			<option value="12">12</option>
+		</select>
+		
+		<select>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+			<option value="6">6</option>
+			<option value="7">7</option>
+			<option value="8">8</option>
+			<option value="9">9</option>
+			<option value="10">10</option>
+			<option value="11">11</option>
+			<option value="12">12</option>
+			<option value="13">13</option>
+			<option value="14">14</option>
+			<option value="15">15</option>
+			<option value="16">16</option>
+			<option value="17">17</option>
+			<option value="18">18</option>
+			<option value="19">19</option>
+			<option value="20">20</option>
+			<option value="21">21</option>
+			<option value="22">22</option>
+			<option value="23">23</option>
+			<option value="24">24</option>
+			<option value="25">25</option>
+			<option value="26">26</option>
+			<option value="27">27</option>
+			<option value="28">28</option>
+			<option value="29">29</option>
+			<option value="30">30</option>
+			<option value="31">31</option>
+		</select>
+		
+		<input type="button" value="go"></input>
+
+		<span id="tanggalan" ></span>
+		<span id="download" ></span>
+		<span id="navigation" ></span>
+	</div>
+	<div style="position:absolute;width:100%;padding:0px">
+		<img src="" width="100%" style="padding:0px" id="gambarJPG" alt="no picture"/>
+	</div>
+	<div style="position:absolute;width:100%;padding:0px">
+		<img src="" width="100%" style="padding:0px" id="gambarPNG" alt="no picture"/>
+
+	</div>
+</div>
+
+</body>
+</html>
