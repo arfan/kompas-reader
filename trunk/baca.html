@@ -22,8 +22,14 @@ $(document).ready(function() {
 
 	$('#godate').click(function() {
 
+		var lebar = gup("lebar");
+		var urlLebar="";
+		if(lebar!="")
+		{
+			urlLebar = "&lebar="+lebar;
+		}
 		//alert($('#datepicker').val());
-		document.location.href = "baca.html?tanggal="+$('#datepicker').val();
+		document.location.href = "baca.html?tanggal="+$('#datepicker').val()+urlLebar;
 		
 	});
 
@@ -49,6 +55,7 @@ function init()
 {
 	var tanggal = gup("tanggal");
 	var halaman = gup("halaman");
+	var lebar = gup("lebar");
 	
 	var currentTime = new Date();
 
@@ -57,6 +64,22 @@ function init()
 	
 	if(halaman=="")
 		halaman="1";
+	
+	var urlLebar="";
+	if(lebar=="")
+	{
+		//nothing
+	}
+	else
+	{
+		var gambarJPG = document.getElementById("gambarJPG");
+		var gambarPNG = document.getElementById("gambarPNG");
+		
+		gambarJPG.width = lebar;
+		gambarPNG.width = lebar;
+		
+		urlLebar = "&lebar="+lebar;
+	}
 	
 	document.getElementById("tanggal").value = tanggal;
 	document.getElementById("halaman").value = halaman;
@@ -69,12 +92,14 @@ function init()
 	{
 		if(halaman==i)
 			nav.innerHTML+=" [ ";
-		nav.innerHTML+='<a href="baca.html?tanggal='+tanggal+'&halaman='+i+'">'+i+'</a> ';
+		nav.innerHTML+='<a href="baca.html?tanggal='+tanggal+'&halaman='+i + urlLebar+ '">'+i+'</a> ';
 		
 		if(halaman==i)
 			nav.innerHTML+="] ";
 		
 	}
+	
+	
 	
 	setPicture();
 }
@@ -147,30 +172,167 @@ function setPicture()
 	//alert(picPNG);
 }
 
+
+function resetZoom()
+{
+	var tanggal = gup("tanggal");
+	var halaman = gup("halaman");
+	
+	var url = 'baca.html?tanggal='+tanggal+'&halaman='+halaman
+	
+	document.location.href = url;
+}
+
+function zoomIn()
+{
+	var gambarJPG = document.getElementById("gambarJPG");
+	var gambarPNG = document.getElementById("gambarPNG");
+	
+	var tanggal = gup("tanggal");
+	var halaman = gup("halaman");
+	var lebar = gup("lebar");
+	
+	if(lebar=="")
+	{
+		lebar = gambarJPG.width;
+	}
+	else
+	{
+		lebar = parseInt(lebar);
+	}
+	
+	var url = 'baca.html?tanggal='+tanggal+'&halaman='+halaman+'&lebar='+(lebar+50);
+	
+	document.location.href = url;
+}
+
+function zoomOut()
+{
+	var gambarJPG = document.getElementById("gambarJPG");
+	var gambarPNG = document.getElementById("gambarPNG");
+	
+	var tanggal = gup("tanggal");
+	var halaman = gup("halaman");
+	var lebar = gup("lebar");
+	
+	if(lebar=="")
+	{
+		lebar = gambarJPG.width;
+	}
+	else
+	{
+		lebar = parseInt(lebar);
+	}
+	
+	var url = 'baca.html?tanggal='+tanggal+'&halaman='+halaman+'&lebar='+(lebar-50);
+	
+	document.location.href = url;
+	
+}
+
 function nextPage()
 {
-	var halaman = document.getElementById("halaman").value;
-	halaman = parseInt(halaman) + 1;
-	document.getElementById("halaman").value = halaman;
+	var gambarJPG = document.getElementById("gambarJPG");
+	var gambarPNG = document.getElementById("gambarPNG");
 	
-	setPicture();
+	var tanggal = gup("tanggal");
+	var halaman = gup("halaman");
+	var lebar = gup("lebar");
+	
+	if(lebar=="")
+	{
+		lebar = gambarJPG.width;
+	}
+	else
+	{
+		lebar = parseInt(lebar);
+	}
+	
+	var url = 'baca.html?tanggal='+tanggal+'&halaman='+(halaman+1)+'&lebar='+lebar;
+	
+	document.location.href = url;
 }
 
 function prevPage()
 {
-	var halaman = document.getElementById("halaman").value;
-	halaman = parseInt(halaman) - 1 ;
-	document.getElementById("halaman").value = halaman;
+	var gambarJPG = document.getElementById("gambarJPG");
+	var gambarPNG = document.getElementById("gambarPNG");
 	
-	setPicture();
-
+	var tanggal = gup("tanggal");
+	var halaman = gup("halaman");
+	var lebar = gup("lebar");
+	
+	if(lebar=="")
+	{
+		lebar = gambarJPG.width;
+	}
+	else
+	{
+		lebar = parseInt(lebar);
+	}
+	
+	var url = 'baca.html?tanggal='+tanggal+'&halaman='+(halaman-1)+'&lebar='+lebar;
+	
+	document.location.href = url;
 }
+
+//~ function nextPage()
+//~ {
+	//~ var halaman = document.getElementById("halaman").value;
+	//~ halaman = parseInt(halaman) + 1;
+	//~ document.getElementById("halaman").value = halaman;
+	
+	//~ setPicture();
+//~ }
+
+//~ function prevPage()
+//~ {
+	//~ var halaman = document.getElementById("halaman").value;
+	//~ halaman = parseInt(halaman) - 1 ;
+	//~ document.getElementById("halaman").value = halaman;
+	
+	//~ setPicture();
+
+//~ }
+
+
+</script>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-1026881-6']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
 
 </script>
 
 </head>
 
 <body onload="init()">
+
+<!-- Start of StatCounter Code -->
+<script type="text/javascript">
+var sc_project=6436484; 
+var sc_invisible=1; 
+var sc_security="08b4fb6b"; 
+</script>
+
+<script type="text/javascript"
+src="http://www.statcounter.com/counter/counter.js"></script><noscript><div
+class="statcounter"><a title="tumblr site counter"
+href="http://statcounter.com/tumblr/" target="_blank"><img
+class="statcounter"
+src="http://c.statcounter.com/6436484/0/08b4fb6b/1/"
+alt="tumblr site counter" ></a></div></noscript>
+<!-- End of StatCounter Code -->
+
 
 <div>
 	<input type="hidden" id="tanggal" value="13-Sep-2010" />
@@ -187,14 +349,19 @@ function prevPage()
 		<input id="datepicker" type="text">
 		<input id="godate" type="button" value="go"></input>
 
+		<input type="button" onclick="zoomOut()" value="-" />
+		<input type="button" onclick="resetZoom()" value="0" />
+		<input type="button" onclick="zoomIn()" value="+" />
+		<span><a target='_blank' href="http://arfan86.blogspot.com/2010/11/launching-kompas-reader-racikan-sendiri.html">about</a> </span>
+	
 		<span id="download" ></span>
 		<span id="navigation" ></span>
 	</div>
 	<div style="position:absolute;width:100%;padding:0px">
-		<img src="" width="100%" style="padding:0px" id="gambarJPG" alt="abdul arfan"/>
+		<img src="" width="100%" style="padding:0px" id="gambarJPG" alt="arfan keren abis"/>
 	</div>
 	<div style="position:absolute;width:100%;padding:0px">
-		<img src="" width="100%" style="padding:0px" id="gambarPNG" alt="abdul arfan"/>
+		<img src="" width="100%" style="padding:0px" id="gambarPNG" alt="arfan keren abis"/>
 
 	</div>
 </div>
